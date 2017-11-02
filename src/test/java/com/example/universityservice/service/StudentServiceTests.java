@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(SpringRunner.class)
 public class StudentServiceTests {
@@ -30,7 +31,7 @@ public class StudentServiceTests {
     @Before
     public void setUp() {
         this.studentService = new StudentService();
-        
+
         this.course1 = new Course("Course1", "Spring", "10 Steps", Arrays
                 .asList("Learn Maven", "Import Project", "First Example",
                         "Second Example"));
@@ -59,9 +60,15 @@ public class StudentServiceTests {
     }
 
     @Test
-    public void insertRetreiveStudent() {
+    public void retreiveKnownStudent() {
         Student returnedStudent = this.studentService.retrieveStudent(ranga.getId());
         assertEquals(returnedStudent.getId(), ranga.getId());
+    }
+
+    @Test
+    public void retreiveUnknownStudent() {
+        Student returnedStudent = this.studentService.retrieveStudent("");
+        assertNull(returnedStudent);
     }
 
 }
